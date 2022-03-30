@@ -19,11 +19,15 @@ ClassImp(AngularDistribution);
  AngularDistribution::AngularDistribution(const char *name, const char *title, 
                         RooAbsReal& _ctheta,
                         RooAbsReal& _phi,
-                        RooAbsReal& _g) :
+                        RooAbsReal& _sx,
+                        RooAbsReal& _sz,
+                        RooAbsReal& _alpha) :
    RooAbsPdf(name,title), 
    ctheta("ctheta","ctheta",this,_ctheta),
    phi("phi","phi",this,_phi),
-   g("g","g",this,_g)
+   sx("sx","sx",this,_sx),
+   sz("sz","sz",this,_sz),
+   alpha("alpha","alpha",this,_alpha)
  { 
  } 
 
@@ -32,7 +36,9 @@ ClassImp(AngularDistribution);
    RooAbsPdf(other,name), 
    ctheta("ctheta",this,other.ctheta),
    phi("phi",this,other.phi),
-   g("g",this,other.g)
+   sx("sx",this,other.sx),
+   sz("sz",this,other.sz),
+   alpha("alpha",this,other.alpha)
  { 
  } 
 
@@ -43,25 +49,9 @@ ClassImp(AngularDistribution);
    // ENTER EXPRESSION IN TERMS OF VARIABLE ARGUMENTS HERE
   const double ctheta0 = ctheta;
   const double phi0 = phi;
-  const double g0 = g;
-
-  const double mElectron = 0.511e6;
-  const double mLambda = 1116e6;
-  const double bohrMagneton = 5.788e-5;
-  const double hbar = 6.582e-16;
-  const double c = 299792458.;
-  const double Dy = 4.;
-  const double beta = 1.;
-
-  const double muB = bohrMagneton * mElectron / mLambda;
-  const double phiRot = g0 * Dy * muB / (beta * hbar * c);
-
-  const double szInitial = 1.;
-
-  const double sx0 = - szInitial * std::sin(phiRot);
-  const double sz0 = szInitial * std::cos(phiRot);
-     
-  double alpha0 = 0.732;
+  const double alpha0 = alpha;
+  const double sx0 = sx;
+  const double sz0 = sz;
 
   double val = 1.+ alpha0 * (sx0 * std::sqrt(1-std::pow(ctheta0,2)) * std::cos(phi0) + sz0 * ctheta0);
 

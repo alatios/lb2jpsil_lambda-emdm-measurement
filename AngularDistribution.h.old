@@ -19,7 +19,9 @@ public:
   AngularDistribution(const char *name, const char *title,
 	      RooAbsReal& _ctheta,
 	      RooAbsReal& _phi,
-	      RooAbsReal& _g);
+	      RooAbsReal& _sx,
+	      RooAbsReal& _sz,
+	      RooAbsReal& _alpha);
   AngularDistribution(const AngularDistribution& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new AngularDistribution(*this,newname); }
   inline virtual ~AngularDistribution() { }
@@ -30,7 +32,9 @@ protected:
 
   RooRealProxy ctheta ;
   RooRealProxy phi ;
-  RooRealProxy g ;
+  RooRealProxy sx ;
+  RooRealProxy sz ;
+  RooRealProxy alpha ;
   
   //Double_t evaluate() const;
 
